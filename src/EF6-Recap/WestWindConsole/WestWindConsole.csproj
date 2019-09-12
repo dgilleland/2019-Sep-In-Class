@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\WestWindContext.cs" />
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\EmployeeTerritories.cs" />
