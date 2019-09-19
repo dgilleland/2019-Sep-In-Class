@@ -26,7 +26,13 @@
 
         <ItemTemplate>
             <tr>
-                <td><%# Item.SupplierID %></td>
+                <td>
+                    <asp:LinkButton ID="EditSupplier" runat="server"
+                        CssClass="btn btn-info glyphicon glyphicon-pencil"
+                        CommandName="Edit">
+                        Edit
+                    </asp:LinkButton>
+                </td>
                 <td><%# Item.CompanyName %></td>
                 <td>
                     <b><%# Item.ContactName %></b>
@@ -86,6 +92,40 @@
                 </th>
             </tr>
         </InsertItemTemplate>
+
+        <EditItemTemplate>
+            <tr class="bg-success">
+                <th>
+                    <asp:LinkButton ID="UpdateSupplier" runat="server"
+                        CssClass="btn btn-success glyphicon glyphicon-ok"
+                        CommandName="Update">
+                        Save
+                    </asp:LinkButton>
+                </th>
+                <th><asp:TextBox ID="CompanyName" runat="server" Text="<%# BindItem.CompanyName %>" placeholder="Enter company name" /></th>
+                <th>
+                    <asp:TextBox ID="Contact" runat="server" Text="<%# BindItem.ContactName %>" placeholder="Contact name" />
+                    <br />
+                    <asp:TextBox ID="JobTitle" runat="server" Text="<%# BindItem.ContactTitle %>" placeholder="Job title" />
+                    <br />
+                    <asp:TextBox ID="Email" runat="server" Text="<%# BindItem.Email %>" TextMode="Email" placeholder="Email" />
+                </th>
+                <th>
+                    <asp:DropDownList ID="AddressDropDown" runat="server"
+                        DataSourceID="AddressDataSource"
+                        AppendDataBoundItems="true"
+                        DataTextField="Address1" DataValueField="AddressID"
+                        SelectedValue="<%# BindItem.AddressID %>">
+                        <asp:ListItem Value="">[Select address on file]</asp:ListItem>
+                    </asp:DropDownList>
+                </th>
+                <th>
+                    <asp:TextBox ID="Phone" runat="server" Text="<%# BindItem.Phone %>" TextMode="Phone" placeholder="Phone #" />
+                    <br />
+                    <asp:TextBox ID="Fax" runat="server" Text="<%# BindItem.Fax %>" TextMode="Phone" placeholder="Fax #" />
+                </th>
+            </tr>
+        </EditItemTemplate>
     </asp:ListView>
 
 
