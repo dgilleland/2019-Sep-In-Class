@@ -54,12 +54,22 @@
         </ItemTemplate>
 
         <InsertItemTemplate>
-            <tr>
+            <tr class="bg-info">
                 <th>ID</th>
-                <th>Company</th>
-                <th>Contact</th>
+                <th><asp:TextBox ID="CompanyName" runat="server" Text="<%# BindItem.CompanyName %>" placeholder="Enter company name" /></th>
+                <th>
+                    <asp:TextBox ID="Contact" runat="server" Text="<%# BindItem.ContactName %>" placeholder="Contact name" />
+                    <br />
+                    <asp:TextBox ID="JobTitle" runat="server" Text="<%# BindItem.ContactTitle %>" placeholder="Job title" />
+                    <br />
+                    <asp:TextBox ID="Email" runat="server" Text="<%# BindItem.Email %>" TextMode="Email" placeholder="Email" />
+                </th>
                 <th>Address</th>
-                <th>Phone / Fax</th>
+                <th>
+                    <asp:TextBox ID="Phone" runat="server" Text="<%# BindItem.Email %>" TextMode="Phone" placeholder="Phone #" />
+                    <br />
+                    <asp:TextBox ID="Fax" runat="server" Text="<%# BindItem.Email %>" TextMode="Phone" placeholder="Fax #" />
+                </th>
             </tr>
         </InsertItemTemplate>
     </asp:ListView>
