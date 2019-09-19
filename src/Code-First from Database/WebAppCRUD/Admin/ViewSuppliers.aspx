@@ -34,7 +34,16 @@
                     <br />
                     <%# Item.Email %>
                 </td>
-                <td><%# Item.Address.City %></td>
+                <td>
+                    <%# Item.Address.Address1 %>
+                    <br />
+                    <%# Item.Address.City %>,
+                    <%# Item.Address.Region %>
+                    &nbsp;&nbsp;
+                    <%# Item.Address.PostalCode %>
+                    <br />
+                    <%# Item.Address.Country %>
+                </td>
                 <td>
                     <%# Item.Phone %>
                     <br />
