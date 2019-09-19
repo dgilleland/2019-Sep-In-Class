@@ -55,7 +55,9 @@
 
         <InsertItemTemplate>
             <tr class="bg-info">
-                <th>ID</th>
+                <th>
+                    
+                </th>
                 <th><asp:TextBox ID="CompanyName" runat="server" Text="<%# BindItem.CompanyName %>" placeholder="Enter company name" /></th>
                 <th>
                     <asp:TextBox ID="Contact" runat="server" Text="<%# BindItem.ContactName %>" placeholder="Contact name" />
@@ -66,9 +68,9 @@
                 </th>
                 <th>Address</th>
                 <th>
-                    <asp:TextBox ID="Phone" runat="server" Text="<%# BindItem.Email %>" TextMode="Phone" placeholder="Phone #" />
+                    <asp:TextBox ID="Phone" runat="server" Text="<%# BindItem.Phone %>" TextMode="Phone" placeholder="Phone #" />
                     <br />
-                    <asp:TextBox ID="Fax" runat="server" Text="<%# BindItem.Email %>" TextMode="Phone" placeholder="Fax #" />
+                    <asp:TextBox ID="Fax" runat="server" Text="<%# BindItem.Fax %>" TextMode="Phone" placeholder="Fax #" />
                 </th>
             </tr>
         </InsertItemTemplate>
