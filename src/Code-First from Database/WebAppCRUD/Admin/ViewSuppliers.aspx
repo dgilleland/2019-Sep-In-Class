@@ -56,7 +56,11 @@
         <InsertItemTemplate>
             <tr class="bg-info">
                 <th>
-                    
+                    <asp:LinkButton ID="AddSupplier" runat="server"
+                        CssClass="btn btn-success glyphicon glyphicon-plus"
+                        CommandName="Insert">
+                        Add
+                    </asp:LinkButton>
                 </th>
                 <th><asp:TextBox ID="CompanyName" runat="server" Text="<%# BindItem.CompanyName %>" placeholder="Enter company name" /></th>
                 <th>
