@@ -70,7 +70,15 @@
                     <br />
                     <asp:TextBox ID="Email" runat="server" Text="<%# BindItem.Email %>" TextMode="Email" placeholder="Email" />
                 </th>
-                <th>Address</th>
+                <th>
+                    <asp:DropDownList ID="AddressDropDown" runat="server"
+                        DataSourceID="AddressDataSource"
+                        AppendDataBoundItems="true"
+                        DataTextField="Address1" DataValueField="AddressID"
+                        >
+                        <asp:ListItem Value="">[Select address on file]</asp:ListItem>
+                    </asp:DropDownList>
+                </th>
                 <th>
                     <asp:TextBox ID="Phone" runat="server" Text="<%# BindItem.Phone %>" TextMode="Phone" placeholder="Phone #" />
                     <br />
@@ -82,4 +90,6 @@
 
 
     <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier"></asp:ObjectDataSource>
+
+    <asp:ObjectDataSource ID="AddressDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAddresses" TypeName="WestWindSystem.BLL.CRUDController"></asp:ObjectDataSource>
 </asp:Content>
