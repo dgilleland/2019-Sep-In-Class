@@ -3,23 +3,43 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>View Suppliers</h1>
 
-    <asp:Repeater ID="SupplierRepeater" runat="server"
+    <asp:ListView ID="SupplierListView" runat="server"
         DataSourceID="SuppliersDataSource"
         ItemType="WestWindSystem.Entities.Supplier">
-        <HeaderTemplate><ul></HeaderTemplate>
+        <LayoutTemplate>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Contact</th>
+                        <th>Contact Title</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Fax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr runat="server" id="itemPlaceholder"></tr>
+                </tbody>
+            </table>
+        </LayoutTemplate>
+
         <ItemTemplate>
-            <li>
-                <b><%# Item.CompanyName %></b>
-                &ndash;
-                <%# Item.ContactTitle %>
-                &mdash;
-                <a href="mailto:<%# Item.Email %>"><%# Item.ContactName %></a>
-                (<%# Item.Phone %>)
-            </li>
+            <tr>
+                <td><%# Item.SupplierID %></td>
+                <td><%# Item.CompanyName %></td>
+                <td><%# Item.ContactName %></td>
+                <td><%# Item.ContactTitle %></td>
+                <td><%# Item.AddressID %></td>
+                <td><%# Item.Phone %></td>
+                <td><%# Item.Email %></td>
+                <td><%# Item.Fax %></td>
+            </tr>
         </ItemTemplate>
-        <SeparatorTemplate>😎</SeparatorTemplate>
-        <FooterTemplate></ul></FooterTemplate>
-    </asp:Repeater>
+    </asp:ListView>
+    
 
     <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController"></asp:ObjectDataSource>
 </asp:Content>
