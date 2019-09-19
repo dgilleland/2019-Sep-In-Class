@@ -5,6 +5,7 @@
 
     <asp:ListView ID="SupplierListView" runat="server"
         DataSourceID="SuppliersDataSource"
+        InsertItemPosition="FirstItem"
         ItemType="WestWindSystem.Entities.Supplier">
         <LayoutTemplate>
             <table class="table table-hover table-condensed">
@@ -51,8 +52,18 @@
                 </td>
             </tr>
         </ItemTemplate>
+
+        <InsertItemTemplate>
+            <tr>
+                <th>ID</th>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Phone / Fax</th>
+            </tr>
+        </InsertItemTemplate>
     </asp:ListView>
 
 
-    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier"></asp:ObjectDataSource>
 </asp:Content>
