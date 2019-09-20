@@ -29,7 +29,17 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                return context.Suppliers.ToList();
+                return context.Suppliers.Include(nameof(Supplier.Address)).ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void AddSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                context.Suppliers.Add(item);
+                context.SaveChanges();
             }
         }
         #endregion
