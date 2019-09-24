@@ -1,9 +1,10 @@
 <Query Kind="Expression">
   <Connection>
-    <ID>9f795fec-6525-43c5-bbd0-2819df27768a</ID>
+    <ID>fa9a30b7-40b2-418b-964d-abb7204b83e0</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
+    <ShowServer>true</ShowServer>
   </Connection>
 </Query>
 
@@ -14,6 +15,7 @@ from person in Employees
 where person.ReportsToEmployee == null
 //   thing     thing 
 select new
+// These curly braces are called the "initializer list"
 {
   Name = person.FirstName + " " + person.LastName
 }
