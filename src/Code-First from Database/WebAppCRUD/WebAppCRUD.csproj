@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Admin\ViewAddresses.aspx" />
     <Content Include="Admin\ViewCategories.aspx" />
     <Content Include="Admin\ViewProducts.aspx" />
     <Content Include="Admin\ViewSuppliers.aspx" />
@@ -172,6 +173,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\ViewAddresses.aspx.cs">
+      <DependentUpon>ViewAddresses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewAddresses.aspx.designer.cs">
+      <DependentUpon>ViewAddresses.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ViewCategories.aspx.cs">
       <DependentUpon>ViewCategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
