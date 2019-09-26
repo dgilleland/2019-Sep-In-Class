@@ -1,9 +1,10 @@
 <Query Kind="Expression">
   <Connection>
-    <ID>5265d1f5-021e-4878-9587-a78d45e7824e</ID>
+    <ID>fa9a30b7-40b2-418b-964d-abb7204b83e0</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
+    <ShowServer>true</ShowServer>
   </Connection>
 </Query>
 
@@ -16,6 +17,7 @@ select new
     Company = sale.Customer.CompanyName,
     FreightCharge = sale.Freight,
     Subtotal = sale.OrderDetails.Sum(lineItem => lineItem.Quantity * lineItem.UnitPrice),
+	//                             \OrderDetail/
     DiscountSubtotal = 
         sale.OrderDetails.Sum(lineItem =>
                               lineItem.Quantity * lineItem.UnitPrice * (decimal)lineItem.Discount)

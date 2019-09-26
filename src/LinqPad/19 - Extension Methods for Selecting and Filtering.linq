@@ -1,9 +1,10 @@
 <Query Kind="Program">
   <Connection>
-    <ID>5265d1f5-021e-4878-9587-a78d45e7824e</ID>
+    <ID>fa9a30b7-40b2-418b-964d-abb7204b83e0</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
+    <ShowServer>true</ShowServer>
   </Connection>
 </Query>
 
@@ -12,6 +13,10 @@ void Main()
 {
     // .Select()
     var staff = Employees.Select(person => person.FirstName + " " + person.LastName);
+	/*
+	            from person in Employees
+				select person.FirstName + " " + person.LastName
+	*/
     var alt = from person in Employees
               select person.FirstName + " " + person.LastName;
     staff.Dump("All staff");
