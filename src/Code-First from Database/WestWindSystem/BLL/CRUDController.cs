@@ -42,6 +42,28 @@ namespace WestWindSystem.BLL
                 context.SaveChanges();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void UpdateSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Entry(item);
+                existing.State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DeleteSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Suppliers.Find(item.SupplierID);
+                context.Suppliers.Remove(existing);
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         #region Categories CRUD
@@ -57,7 +79,7 @@ namespace WestWindSystem.BLL
 
         #region Addresses CRUD
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<Address> ListAddresss()
+        public List<Address> ListAddresses()
         {
             using (var context = new WestWindContext())
             {
