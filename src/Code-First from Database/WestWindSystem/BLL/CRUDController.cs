@@ -88,6 +88,38 @@ namespace WestWindSystem.BLL
                 return context.Addresses.ToList();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void AddAddress(Address item)
+        {
+            using (var context = new WestWindContext())
+            {
+                context.Addresses.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void UpdateAddress(Address item)
+        {
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Entry(item);
+                existing.State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DeleteAddress(Address item)
+        {
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Addresses.Find(item.AddressID);
+                context.Addresses.Remove(existing);
+                context.SaveChanges();
+            }
+        }
         #endregion
     }
 }
