@@ -12,8 +12,8 @@
         <EditItemTemplate>
             <tr style="">
                 <td>
-                    <asp:Button runat="server" CommandName="Update" Text="Update" ID="UpdateButton" />
-                    <asp:Button runat="server" CommandName="Cancel" Text="Cancel" ID="CancelButton" />
+                    <asp:Button runat="server" CommandName="Update" Text="Update" ID="UpdateButton" CssClass="btn btn-primary" />
+                    <asp:Button runat="server" CommandName="Cancel" Text="Cancel" ID="CancelButton" CssClass="btn btn-default" />
                 </td>
                 <td>
                     <asp:TextBox Text='<%# Bind("Address1") %>' runat="server" ID="Address1TextBox" /></td>
@@ -28,10 +28,10 @@
             </tr>
         </EditItemTemplate>
         <InsertItemTemplate>
-            <tr style="">
+            <tr class="bg-success">
                 <td>
-                    <asp:Button runat="server" CommandName="Insert" Text="Insert" ID="InsertButton" />
-                    <asp:Button runat="server" CommandName="Cancel" Text="Clear" ID="CancelButton" />
+                    <asp:Button runat="server" CommandName="Insert" Text="Insert" ID="InsertButton" CssClass="btn btn-success" />
+                    <asp:Button runat="server" CommandName="Cancel" Text="Clear" ID="CancelButton" CssClass="btn btn-default" />
                 </td>
                 <td>
                     <asp:TextBox Text='<%# Bind("Address1") %>' runat="server" ID="Address1TextBox" /></td>
@@ -48,8 +48,9 @@
         <ItemTemplate>
             <tr style="">
                 <td>
-                    <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" />
-                    <asp:Button runat="server" CommandName="Edit" Text="Edit" ID="EditButton" />
+                    <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" CssClass="btn btn-danger"
+                        OnClientClick="return confirm('Are you sure you want to delete this address?')" />
+                    <asp:Button runat="server" CommandName="Edit" Text="Edit" ID="EditButton" CssClass="btn btn-default" />
                 </td>
                 <td>
                     <asp:Label Text='<%# Eval("Address1") %>' runat="server" ID="Address1Label" /></td>
@@ -67,7 +68,7 @@
             <table runat="server">
                 <tr runat="server">
                     <td runat="server">
-                        <table runat="server" id="itemPlaceholderContainer" style="" border="0">
+                        <table runat="server" id="itemPlaceholderContainer" style="" border="0" class="table table-hover table-condensed">
                             <tr runat="server" style="">
                                 <th runat="server"></th>
                                 <th runat="server">Address1</th>
@@ -82,7 +83,7 @@
                 </tr>
                 <tr runat="server">
                     <td runat="server" style="">
-                        <asp:DataPager runat="server" ID="DataPager1">
+                        <asp:DataPager runat="server" ID="DataPager1" PageSize="8">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False"></asp:NextPreviousPagerField>
                                 <asp:NumericPagerField></asp:NumericPagerField>
