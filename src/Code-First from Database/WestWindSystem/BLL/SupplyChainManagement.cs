@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ using WestWindSystem.ReadModels;
 
 namespace WestWindSystem.BLL
 {
+    [DataObject]
     public class SupplyChainManagement
     {
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<SupplierSummary> GetSupplierSummaries()
         {
             using(var context = new WestWindContext())

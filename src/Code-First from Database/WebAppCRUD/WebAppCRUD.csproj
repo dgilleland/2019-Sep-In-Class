@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Admin\SupplyChain.aspx" />
     <Content Include="Admin\ViewAddresses.aspx" />
     <Content Include="Admin\ViewCategories.aspx" />
     <Content Include="Admin\ViewProducts.aspx" />
@@ -168,6 +169,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\SupplyChain.aspx.cs">
+      <DependentUpon>SupplyChain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SupplyChain.aspx.designer.cs">
+      <DependentUpon>SupplyChain.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ViewAddresses.aspx.cs">
       <DependentUpon>ViewAddresses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
