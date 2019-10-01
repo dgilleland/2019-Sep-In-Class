@@ -71,10 +71,10 @@
                         <table runat="server" id="itemPlaceholderContainer" style="" border="0" class="table table-hover table-condensed">
                             <tr runat="server" style="">
                                 <th runat="server"></th>
-                                <th runat="server">Address1</th>
+                                <th runat="server">Street Address</th>
                                 <th runat="server">City</th>
                                 <th runat="server">Region</th>
-                                <th runat="server">PostalCode</th>
+                                <th runat="server">Postal Code</th>
                                 <th runat="server">Country</th>
                             </tr>
                             <tr runat="server" id="itemPlaceholder"></tr>
