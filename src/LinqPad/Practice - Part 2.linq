@@ -1,4 +1,11 @@
-<Query Kind="Expression" />
+<Query Kind="Expression">
+  <Connection>
+    <ID>427b867e-be0d-4dfa-a844-3e8558a6934e</ID>
+    <Persist>true</Persist>
+    <Server>.</Server>
+    <Database>WestWind</Database>
+  </Connection>
+</Query>
 
 // Practice questions - do each one in a separate LinqPad query.
 
@@ -14,7 +21,26 @@
  * |---------------|----------------------------|
  * | ...           |                            |
  * 
+from place in Territories
+group place by place.Region.RegionDescription into bigPlace
+select new
+{
+	Region = bigPlace.Key,
+	Employees = (from terr in bigPlace
+	            from emplTerr in terr.EmployeeTerritories
+				select emplTerr.Employee.FirstName + " " + emplTerr.Employee.LastName).Distinct()
+	 
+}
  */
+from place in Regions
+select new
+{
+    Region = place.RegionDescription,
+	Employees = (from area in place.Territories
+	            from managedTerritory in area.EmployeeTerritories
+				select managedTerritory.Employee.FirstName + " " + managedTerritory.Employee.LastName).Distinct()
+}
+
 
 // B) List all the Customers by Company Name. Include the Customer's company name, contact name, and other contact information in the result.
 
