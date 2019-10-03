@@ -13,5 +13,13 @@ namespace WebAppCRUD.Admin
         {
 
         }
+
+        protected void CheckForExceptions(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            if (e.Exception == null)
+                MessageUserControl.ShowInfo("Success!");
+            else
+                MessageUserControl.HandleDataBoundException(e);
+        }
     }
 }
