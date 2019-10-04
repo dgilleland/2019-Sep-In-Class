@@ -25,6 +25,10 @@ GO  -- this statement helps to "separate" various DDL statements in our script
 -- because of how the tables are related via Foreign Keys.
 /* DROP TABLE statements (to "clean up" the database for re-creation)  */
 /*   You should drop tables in the REVERSE order in which you created them */
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'PaymentLogDetails')
+    DROP TABLE PaymentLogDetails
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Payments')
+    DROP TABLE Payments
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'OrderDetails')
     DROP TABLE OrderDetails
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'InventoryItems')
@@ -81,9 +85,15 @@ CREATE TABLE Orders
             FOREIGN KEY REFERENCES
             Customers(CustomerNumber)   NOT NULL,
     [Date]          datetime            NOT NULL,
-    Subtotal        money               NOT NULL,
-    GST             money               NOT NULL,
-    Total           money               NOT NULL
+    Subtotal        money               
+        CONSTRAINT CK_Orders_Subtotal
+            CHECK (Subtotal > 0)
+                                        NOT NULL,
+    GST             money
+        CONSTRAINT CK_Orders_GST
+            CHECK (GST >= 0)            
+                                        NOT NULL,
+    Total           AS Subtotal + GST   -- This is now a Computed Column
 )
 
 CREATE TABLE InventoryItems
@@ -92,7 +102,9 @@ CREATE TABLE InventoryItems
         CONSTRAINT PK_InventoryItems_ItemNumber
             PRIMARY KEY                     NOT NULL,
     ItemDescription     varchar(50)             NULL,
-    CurrentSalePrice    money               NOT NULL,
+    CurrentSalePrice    money
+        CONSTRAINT CK_InventoryItems_CurrentSalePrice
+            CHECK (CurrentSalePrice > 0)    NOT NULL,
     InStockCount        int                 NOT NULL,
     ReorderLevel        int                 NOT NULL
 )
@@ -107,7 +119,12 @@ CREATE TABLE OrderDetails
         CONSTRAINT FK_OrderDetails_ItemNumber_InventoryItems_ItemNumber
             FOREIGN KEY REFERENCES
             InventoryItems(ItemNumber)  NOT NULL,
-    Quantity        int                 NOT NULL,
+    Quantity        int
+        CONSTRAINT DF_OrderDetails_Quantity
+            DEFAULT (1)
+        CONSTRAINT CK_OrderDetails_Quantity
+            CHECK   (Quantity > 0)
+                                        NOT NULL,
     SellingPrice    money               NOT NULL,
     Amount          money               NOT NULL,
     -- The following is a Table Constraint
