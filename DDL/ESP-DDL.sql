@@ -197,7 +197,7 @@ GO
  *  Syntax for ALTER TABLE can be found at
  *      http://msdn.microsoft.com/en-us/library/ms190273.aspx
  *  ALTER TABLE statements allow us to change an existing table without
- *  having ot drop it or lose information in the table
+ *  having to drop it or lose information in the table
  * **************************/
 
 -- A) Allow Address, City, Province, and Postal Code to be NULL
@@ -358,7 +358,7 @@ SELECT  ItemNumber, ItemDescription, CurrentSalePrice
 FROM    InventoryItems
 GO
 
--- G) Add an indes on the Item's Description column, to improve search.
+-- G) Add an index on the Item's Description column, to improve search.
 CREATE NONCLUSTERED INDEX IX_InventoryItems_ItemDescription
     ON InventoryItems (ItemDescription)
 
