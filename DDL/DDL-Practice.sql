@@ -180,4 +180,105 @@ SELECT  CustomerNumber, FirstName, LastName,
         PhoneNumber
 FROM    Customers
 
+-- Let's insert a few rows of data for inventory items
+PRINT 'Inserting inventory items'
+INSERT INTO InventoryItems(ItemNumber, ItemDescription, CurrentSalePrice, InStockCount, ReorderLevel)
+    VALUES ('H8726', 'Cleaning Fan belt', 29.95, 3, 5),
+           ('H8621', 'Engine Fan belt', 17.45, 10, 5)
+
+-- Let's do a "quick'n'dirty" select of Inventory Items
+SELECT * FROM InventoryItems
+-- Notice how the data in the InventoryItems is already sorted by the PK
+-- This is because the PK of a table is (by default) a CLUSTERED INDEX
+
+-- Let's do another set of DML statements to add more data to the database
+PRINT 'Inserting an order'
+INSERT INTO Orders(CustomerNumber, [Date], Subtotal, GST)
+    VALUES (100, GETDATE(), 17.45, 0.87)
+INSERT INTO OrderDetails(OrderNumber, ItemNumber, Quantity, SellingPrice)
+    VALUES (200, 'H8726', 1, 17.45)
+PRINT '-- end of order data --'
+PRINT ''
+GO
+
+/* ***************************
+ * Change Requests for Spec 1
+ *  Perform table changes through ALTER statements.
+ *  Syntax for ALTER TABLE can be found at
+ *      http://msdn.microsoft.com/en-us/library/ms190273.aspx
+ *  ALTER TABLE statements allow us to change an existing table without
+ *  having to drop it or lose information in the table
+ * **************************/
+
+-- A) Allow Address, City, Province, and Postal Code to be NULL
+--    SQL requires each column to be altered SEPARATELY.
+ALTER TABLE Customers
+    ALTER COLUMN [Address] varchar(40) NULL
+GO -- this statement helps to "separate" various DDL statements in our script. It's optional.
+
+ALTER TABLE Customers
+    ALTER COLUMN City varchar(35) NULL
+GO
+
+ALTER TABLE Customers
+    ALTER COLUMN Province char(2) NULL
+GO
+
+ALTER TABLE Customers
+    ALTER COLUMN PostalCode char(6) NULL
+GO
+
+
+-- B) Add a check constraint on the First and Last name to require at least two letters.
+--    % is a wildcard for zero or more characters (letter, digit, or other character)
+--    _ is a wildcard for a single character (letter, digit, or other character)
+--    [] are used to represent a range or set of characters that are allowed
+ALTER TABLE Customers
+    ADD CONSTRAINT CK_Customers_FirstName
+        CHECK (FirstName LIKE '[A-Z][A-Z]%') -- two letters plus any other chars
+        --                     \ 1 /\ 1 /
+        -- Positive match for 'Fred'
+        -- Positive match for 'Wu'
+        -- Negative match for 'F'
+        -- Negative match for '2udor'
+
+ALTER TABLE Customers
+    ADD CONSTRAINT CK_Customers_LastName
+        CHECK (LastName LIKE '[A-Z][A-Z]%')
+
+-- Once the ALTER TABLE changes are made for A) and B),
+-- we can insert Customer information allowing certain columns to be NULL.
+INSERT INTO Customers(FirstName, LastName)
+    VALUES ('Fred', 'Flintstone')
+INSERT INTO Customers(FirstName, LastName)
+    VALUES ('Barney', 'Rubble')
+INSERT INTO Customers(FirstName, LastName, PhoneNumber)
+    VALUES ('Wilma', 'Slaghoople', '(403)555-1212')
+INSERT INTO Customers(FirstName, LastName, [Address], City)
+    VALUES ('Betty', 'Mcbricker', '103 Granite Road', 'Bedrock')
+
+-- Select the customer information
+SELECT  CustomerNumber, FirstName, LastName,
+        [Address] + ' ' + City + ', ' + Province AS 'Customer Address',
+        PhoneNumber
+FROM    Customers
+GO
+
+
+-- C) Add an extra bit of information on the Customer table. The client wants to
+--    start tracking customer emails, so they can send out statements for
+--    outstanding payments that are due at the end of the month.
+
+-- D) Add indexes to the Customer's First and Last Name columns
+
+-- E) Add a default constraint on the Orders.Date column to use the current date.
+
+-- F) Change the InventoryItems.ItemDescription column to be NOT NULL
+
+-- G) Add an index on the Item's Description column, to improve search.
+
+-- H) Data change requests: All inventory items that are less than $5.00 have to
+--    have their prices increased by 10%.
+
+
 /* ==================== Practice SQL Below =================== */
