@@ -264,6 +264,17 @@ SELECT  CustomerNumber, FirstName, LastName,
 FROM    Customers
 GO
 
+/*
+    You can check that the constraints work on the first/last name
+    by highlighting and running these scripts. They should fail.
+
+INSERT INTO Customers(FirstName, LastName)
+    VALUES ('F', 'Flintstone')
+INSERT INTO Customers(FirstName, LastName)
+    VALUES ('Fred', 'F')
+
+*/
+
 
 -- C) Add an extra bit of information on the Customer table. The client wants to
 --    start tracking customer emails, so they can send out statements for
