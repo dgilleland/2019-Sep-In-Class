@@ -38,9 +38,25 @@
         <div class="col-md-4">
             <h2>ASP.Net TextBox</h2>
             <asp:LinkButton ID="ParseTextBoxInput" runat="server" CssClass="btn btn-primary" OnClick="ParseTextBoxInput_Click">Parse <code>&lt;asp:TextBox /&gt;</code> Input</asp:LinkButton>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
+            <dl>
+                <dt><asp:TextBox id="TextBoxDate" runat="server" TextMode="Date" /> <label>Date</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxDate&quot; runat=&quot;server&quot; TextMode=&quot;Date&quot; /&gt;</dd>
+                
+                <dt><asp:TextBox id="TextBoxDateTime" runat="server" TextMode="DateTime" /> <label>DateTime</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxDateTime&quot; runat=&quot;server&quot; TextMode=&quot;DateTime&quot; /&gt;</dd>
+                
+                <dt><asp:TextBox id="TextBoxDateTimeLocal" runat="server" TextMode="DateTimeLocal" /> <label>DateTime-Local</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxDateTimeLocal&quot; runat=&quot;server&quot; TextMode=&quot;DateTimeLocal&quot; /&gt;</dd>
+
+                <dt><asp:TextBox id="TextBoxTime" runat="server" TextMode="Time" /> <label>Time</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxTime&quot; runat=&quot;server&quot; TextMode=&quot;Time&quot; /&gt;</dd>
+
+                <dt><asp:TextBox id="TextBoxWeek" runat="server" TextMode="Week" /> <label>Week</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxWeek&quot; runat=&quot;server&quot; TextMode=&quot;Week&quot; /&gt;</dd>
+
+                <dt><asp:TextBox id="TextBoxMonth" runat="server" TextMode="Month" /> <label>Month</label></dt>
+                <dd>&lt;asp:TextBox id=&quot;TextBoxMonth&quot; runat=&quot;server&quot; TextMode=&quot;Month&quot; /&gt;</dd>
+            </dl>
         </div>
     </div>
 
