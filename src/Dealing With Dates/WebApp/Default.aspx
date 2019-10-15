@@ -3,36 +3,41 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <h1>Dealing With Dates</h1>
+        <p class="lead">Date-related data in the Web & Entity Framework requires some thinking. How</p>
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
+            <p>A number of different <code>type</code> values can be used on the <code>&lt;input ... /&gt;</code> element for dealing with dates and times. Additionally, each browser renders those elements differently, so much so that developers/designers often look to 3rd-party libraries to bring consistency to the user experience. Here, however, we're looking at the date/time input variations as shown in the Chrome browser.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Straight HTML</h2>
+            <asp:LinkButton ID="ParseHtmlInput" runat="server" CssClass="btn btn-primary" OnClick="ParseHtmlInput_Click">Parse HTML Input</asp:LinkButton>
+            <dl>
+                <dt><input id="HtmlDate" runat="server" type="date" name="date_Sample" /> <label>Date</label></dt>
+                <dd></dd>
+                <dt><input id="HtmlDateTime" runat="server" type="datetime" name="dateTime_Sample" /> <label>DateTime</label></dt>
+                <dd></dd>
+                <dt><input id="HtmlDateTimeLocal" runat="server" type="datetime-local" name="dateTimeLocal_Sample" /> <label>DateTime-Local</label></dt>
+                <dd></dd>
+                <dt><input id="HtmlTime" runat="server" type="time" name="time_Sample" /> <label>Time</label></dt>
+                <dd></dd>
+                <dt><input id="HtmlWeek" runat="server" type="week" name="week_Sample" /> <label>Week</label></dt>
+                <dd></dd>
+                <dt><input id="HtmlMonth" runat="server" type="month" name="month_Sample" /> <label>Month</label></dt>
+                <dd></dd>
+            </dl>
         </div>
         <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
+            <h2>Output</h2>
+            <output id="PostBackOutput" runat="server" />
         </div>
         <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
+            <h2>ASP.Net TextBox</h2>
+            <asp:LinkButton ID="ParseTextBoxInput" runat="server" CssClass="btn btn-primary" OnClick="ParseTextBoxInput_Click">Parse <code>&lt;asp:TextBox /&gt;</code> Input</asp:LinkButton>
             <p>
                 <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
             </p>
