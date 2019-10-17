@@ -16,4 +16,15 @@ The information shown here will be displayed in a **ListView**, using the *Selec
 
 ### Queries
 
+```csharp
+public class OrderItem
+{
+    public int ProductID {get;set;}
+    public string ProductName {get;set;}
+    public short Qty {get;set;}
+    public string QtyPerUnit {get;set;}
+    public short Outstanding {get;set;} // Calculated as OD.Quantity - Sum(Shipped qty)
+}
+```
+
 ## BLL Processing
