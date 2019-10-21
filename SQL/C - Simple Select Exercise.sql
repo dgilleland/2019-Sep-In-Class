@@ -46,7 +46,7 @@ SELECT StudentID,
        AVG(Mark) AS 'Avg Mark'
 FROM   Registration
 GROUP BY StudentID
--- The HAVING clause is where we do filtering of Aggregate information
+-- The HAVING clause is where we do filtering of *Aggregate* information!
 HAVING AVG(Mark) > 80
 
 -- 5. How many students are from each city? Display the City and the count.
