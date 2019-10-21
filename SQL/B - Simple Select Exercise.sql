@@ -24,6 +24,13 @@ WHERE   CourseId = 'DMIT104'
 --3.	Select how many students are there in the Student Table
 SELECT  COUNT(FirstName) AS 'Student Count'
 FROM    Student
+-- alternatively, I don't even need to specify a column
+SELECT  COUNT(1) AS 'Student Count'
+FROM    Student
+-- or
+SELECT  COUNT('x') AS 'Student Count'
+FROM    Student
+
 
 --3.b   The argument for the COUNT() function can be any column and/or expression.
 --      COUNT() will count the number of occurrences (i.e., "rows").
@@ -37,7 +44,8 @@ FROM    Staff
 -- 3.d  Do a count of the people in the Staff table who are no longer working here
 --      Refresh your memory about all the data in the Staff table
 SELECT  * FROM Staff
-SELECT  COUNT(DateReleased) AS 'Retired Staff'
+SELECT  COUNT(DateReleased) AS 'Retired Staff',
+        COUNT(DateHired) AS 'Hired Staff'
 FROM    Staff
 
 --4.	Select how many students have taken (have a grade for) DMIT152
@@ -57,26 +65,37 @@ WHERE   CourseId = 'DMIT152'
 
 --5.	Select the average payment amount for payment type 5
 -- TODO: Student Answer Here - Hint: It's in the Payment table....
-
+SELECT  AVG(Amount) AS 'Average Payment'
+FROM    Payment AS P
+WHERE   P.PaymentTypeID = 5
 
 -- Given that there are some other aggregate methods like MAX(columnName) and MIN(columnName), complete the following two questions:
 --6. Select the highest payment amount
 -- TODO: Student Answer Here
+SELECT  MAX(Amount) AS 'Highest Payment'
+FROM    Payment
 
 
 --7.	 Select the lowest payment amount
 -- TODO: Student Answer Here
+SELECT  MIN(Amount) AS 'Lowest Payment'
+FROM    Payment
 
 
 --8. Select the total of all the payments that have been made
 -- TODO: Student Answer Here
+SELECT  SUM(Amount) AS 'Total Payments'
+FROM    Payment
 
 --9. How many different payment types does the school accept?
 -- Do a bit of exploratory selects
 SELECT PaymentTypeDescription
 FROM   PaymentType
 -- TODO: Student Answer Here
+SELECT  COUNT(1)
+FROM    PaymentType
 
 --10. How many students are in club 'CSS'?
 -- TODO: Student Answer Here
-
+SELECT  COUNT(Activity.StudentId)
+FROM    Activity
