@@ -30,7 +30,7 @@ SELECT  PaymentTypeID,                              -- Non-aggregate column (btw
         COUNT(PaymentTypeID) AS 'Count of Pay Type' -- Aggregate column
 FROM    Payment
 GROUP BY PaymentTypeID
-ORDER BY COUNT(PaymentTypeID) ASC
+ORDER BY COUNT(PaymentTypeID) DESC
 /* A note on ORDER BY
    - The ORDER BY clause will, by default, do the sorting in ascending order.
      You can also sort by more than one column (more on that later).
