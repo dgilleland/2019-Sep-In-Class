@@ -1,6 +1,6 @@
 <Query Kind="Expression">
   <Connection>
-    <ID>427b867e-be0d-4dfa-a844-3e8558a6934e</ID>
+    <ID>a00a5aa6-ba7f-476f-b839-d9097fde871b</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
@@ -42,7 +42,7 @@ select new
 }
 
 
-// B) List all the Customers by Company Name. Include the Customer's company name, contact name, and other contact information in the result.
+// B) List all the Customers sorted by Company Name. Include the Customer's company name, contact name, and other contact information in the result.
 
 // C) List all the employees and sort the result in ascending order by last name, then first name. Show the employee's first and last name separately, along with the number of customer orders they have worked on.
 
