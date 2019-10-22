@@ -15,6 +15,12 @@ namespace RemedialOOP
 
     public class AirSquadron : FightingUnit
     {
+
+        public AirSquadron(int unitsInSquadron)
+        {
+            Count = unitsInSquadron;
+        }
+
         public BattleDomain Domain => BattleDomain.Air;
         public int Count { get; private set; }
     }
@@ -23,6 +29,10 @@ namespace RemedialOOP
     {
         public BattleDomain Domain => BattleDomain.Land;
         public int Count { get; private set; }
+        public TankUnit(int count)
+        {
+            Count = count;
+        }
     }
 
     public abstract class Ship
