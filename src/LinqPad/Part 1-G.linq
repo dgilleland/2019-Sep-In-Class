@@ -9,5 +9,5 @@
 
 // G) List all the product names that contain the word "chef" in the name.
 from item in Products
-where item.ProductName.Contains("chef")
+where item.ProductName.ToLower().Contains("chef")
 select item.ProductName
