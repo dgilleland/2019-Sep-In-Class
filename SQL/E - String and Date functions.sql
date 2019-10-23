@@ -18,9 +18,10 @@ GO
 	-- SUBSTRING
 	SELECT SUBSTRING('Hello World', 1, 2)
 	SELECT SUBSTRING('To be or not to be', 10, 3)
+    --                123456789|||
 	-- REVERSE
     SELECT REVERSE('Dan')
-    -- (Club whose id is an anagram)
+    -- (Club whose id is a palindrome)
     -- Select the insert statement below to add a row into the Club table
     -- INSERT INTO Club(ClubId, ClubName) VALUES ('ABCBA', 'Active Bat Catching Brotherhood Assoc.')
 	SELECT	ClubId, ClubName
@@ -128,7 +129,7 @@ WHERE   Mark IS NOT NULL
     
     DATEADD (xx, n, date1)      returns a new date adding the number of xx to date1; n may be negative
     
-    DATEDIFF (xx, date1, date2) returns the number of xx from date1 (older) to date2 (newer) – can return negative numbers
+    DATEDIFF (xx, date1, date2) returns the number of xx from date1 (older) to date2 (newer) - can return negative numbers
     
     DATENAME (xx, date1)        returns a string representation of the xx of date1
     
