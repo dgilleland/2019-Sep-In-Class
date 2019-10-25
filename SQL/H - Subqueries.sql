@@ -6,6 +6,7 @@ GO
 
 --1. Select the Payment dates and payment amount for all payments that were Cash
 SELECT PaymentDate, Amount
+        --, Payment.PaymentTypeID
 FROM   Payment
 WHERE  PaymentTypeID = -- Using the = means that the RH side must be a single value
      -- Assuming that every PaymentTypeDescription will be UNIQUE,
@@ -23,6 +24,26 @@ WHERE  PaymentTypeDescription = 'cash'
 
 --2. Select The Student ID's of all the students that are in the 'Association of Computing Machinery' club
 -- TODO: Student Answer Here
+SELECT  StudentID
+FROM    Activity
+WHERE   ClubID = (SELECT ClubID FROM Club
+                  WHERE ClubName = 'Association of Computing Machinery')
+
+-- 2.b. Select the names of all the students in the 'Association of Computing Machinery' club. Use a subquery for your answer. When you make your answer, ensure the outmost query only uses the Student table in its FROM clause.
+SELECT   FirstName + ' ' + LastName
+FROM     Student
+WHERE    StudentID IN
+        (SELECT  StudentID
+         FROM    Activity
+         WHERE   ClubID = 
+                (SELECT ClubID FROM Club
+                 WHERE ClubName = 'Association of Computing Machinery'))
+
+-- This is like saying
+SELECT   FirstName + ' ' + LastName
+FROM     Student
+WHERE    StudentID IN (19912010, 200322620, 200495500)
+
 
 --3. Select All the staff full names for staff that have taught a course.
 SELECT FirstName + ' ' + LastName AS 'Staff'
@@ -109,3 +130,4 @@ WHERE City = 'Edm'
 --9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
 -- TODO: Student Answer Here...
 
+--10. Which student(s) have the highest average mark? Hint - This can only be done by a subquery

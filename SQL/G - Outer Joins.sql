@@ -4,8 +4,8 @@ GO
 
 --1. Select All position descriptions and the staff ID's that are in those positions
 SELECT  PositionDescription, StaffID
-FROM    Position P -- Start with the Position table, because I want ALL position descriptions...
-    LEFT OUTER JOIN Staff S ON P.PositionID = S.PositionID
+FROM    Position AS P -- Start with the Position table, because I want ALL position descriptions...
+    LEFT OUTER JOIN Staff AS S ON P.PositionID = S.PositionID
 
 --2. Select the Position Description and the count of how many staff are in those positions. Return the count for ALL positions.
 --HINT: Count can use either count(*) which means the entire "row", or "all the columns".
