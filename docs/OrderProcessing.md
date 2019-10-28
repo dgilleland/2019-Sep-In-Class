@@ -34,6 +34,28 @@ The POCOs/DTOs are simply classes that will hold our data when we are performing
 ### Queries
 
 ```csharp
+public class ShipperSelection
+{
+    public int ShipperId { get; set; }
+    public string Shipper { get; set; }
+}
+```
+
+```csharp
+public class OutstandingOrder
+{
+    public int OrderId { get; set; }
+    public string ShipToName { get; set; }
+    public DateTime OrderDate { get; set; }
+    public DateTime RequiredBy { get; set; }
+    public TimeSpan DaysRemaining { get; } // Calculated
+    public IEnumerable<OrderProductInformation> OutstandingItems { get; set; }
+    public string FullShippingAddress { get; set; }
+    public string Comments { get; set; }
+}
+```
+
+```csharp
 public class OrderProductInformation
 {
     public int ProductId {get;set;}
@@ -47,4 +69,44 @@ public class OrderProductInformation
 
 ### Commands
 
+```csharp
+public class ShippingDirections
+{
+    public int ShipperId { get; set; }
+    public string TrackingCode { get; set; }
+    public decimal? FreightCharge { get; set; }
+}
+```
+
+```csharp
+public class ProductShipment
+{
+    public int ProductId { get; set; }
+    public int ShipQuantity { get; set; }
+}
+```
+
 ## BLL Processing
+
+All product shipments are handled by the **`OrderProcessingController`**. It supports the following methods.
+
+- **`List<OutstandingOrder> LoadOrders(int supplierId)`**
+  - **Validation:**
+    - Make sure the supplier ID exists, otherwise throw exception
+    - [Advanced:] *Make sure the logged-in user works for the identified supplier.*
+  - Query for outstanding orders, getting data from the following tables:
+    - TODO: List table names
+- **`List<ShipperSelection> ListShippers()`**
+  - Queries for all the shippers.
+- **`void ShipOrder(int orderId, ShippingDirections shipping, List<ProductShipment> products)`**
+  - **Validation:**
+    - OrderId must be valid
+    - products cannot be an empty list
+    - Products identified must be on the order
+    - Quantity must be greater than zero and less than or equal to the quantity outstanding
+    - Shipper must exist
+    - Freight charge must either be null (no charge) or > $0.00
+  - Processing (tables/data that must be updated/inserted/deleted/whatever)
+    - Create new Shipment
+    - Add all manifest items
+    - Check if order is complete; if so, update Order.Shipped
