@@ -71,7 +71,7 @@ AS
 GO
 -- SELECT * FROM StudentGrades -- Use to examine the results in the view
 */
---6.  Using the student grades view change the coursename to be 'basket weaving 101'.
+--6.  Using the student grades view change the Capstone coursename to be 'basket weaving 101'.
 
 --7.  Using the student grades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 

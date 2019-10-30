@@ -42,6 +42,11 @@ VALUES ('Shane', 'Bell', GETDATE(),
         (SELECT PositionID
         FROM   Position
         WHERE  PositionDescription = 'Instructor'))
+-- 2.c. We have an open position in the staff.
+SELECT  PositionDescription
+FROM    Position
+WHERE   PositionID NOT IN (SELECT PositionID FROM Staff)
+--      Add Sheldon Murray as the new Assistant Dean. (He has friends at NAIT)
 
 -- 3. There are three additional clubs being started at the school:
 --      - START - Small Tech And Research Teams
@@ -56,8 +61,11 @@ VALUES ('START', 'Small Tech And Research Teams'),
 -- ======= Practice ========
 -- 4. In your web browser, use https://randomuser.me/ to get information on three
 --    people to add as new students. Write separate insert statement for each new student.
--- TODO: Student Answer Here....
-
+-- TODO: Student Answer Here....  sp_help Student
+INSERT INTO Student(Gender, LastName, FirstName, Birthdate)
+VALUES ('M', 'Franklin', 'Jimmy', '2001-09-01'),
+       ('F', 'Williamson', 'Irene', '1998-1-12'),
+       ('M', 'Cunningham', 'Allan', '2002-10-5')
 
 -- 5. Enroll each of the students you've added into the DMIT104 course.
 --    Use 'Dan Gilleland' as the instructor. At this point, their marks should be NULL.
