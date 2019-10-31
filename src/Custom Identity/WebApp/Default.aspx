@@ -10,14 +10,16 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
+            <h2>People in My Neighborhood</h2>
+            <asp:GridView ID="PeopleGridView" runat="server" AutoGenerateColumns="False" DataSourceID="DemoDataSource">
+                <Columns>
+                    <asp:BoundField DataField="PersonID" HeaderText="PersonID" SortExpression="PersonID"></asp:BoundField>
+                    <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName"></asp:BoundField>
+                    <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName"></asp:BoundField>
+                    <asp:BoundField DataField="BirthDate" HeaderText="BirthDate" SortExpression="BirthDate"></asp:BoundField>
+                </Columns>
+            </asp:GridView>
+            <asp:ObjectDataSource ID="DemoDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListPeople" TypeName="DemoSystem.BLL.DemoController"></asp:ObjectDataSource>
         </div>
         <div class="col-md-4">
             <h2>Get more libraries</h2>
