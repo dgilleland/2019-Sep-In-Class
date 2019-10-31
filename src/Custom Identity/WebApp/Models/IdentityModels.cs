@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WebApp.Admin.Security;
 using WebApp.Models;
 
 namespace WebApp.Models
@@ -40,7 +41,7 @@ namespace WebApp.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             // Needs to have using System.Data.Entity;
-            Database.SetInitializer<ApplicationDbContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(new SecurityDbContextInitializer());
         }
 
         public static ApplicationDbContext Create()
