@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Demo.BLL;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,26 @@ namespace WebApp.Admin.Security
                 var found = userManager.FindByName("WebAdmin").Id;
                 // Add the user to the Administrators role
                 userManager.AddToRole(found, "Administrators");
+            }
+
+            // Create the other user accounts for all the people in my Demo database
+            var demoManager = new DemoController();
+            var people = demoManager.ListImportantPeople();
+            foreach(var person in people)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = $"{person.FirstName}.{person.LastName}",
+                    Email = $"{person.FirstName}.{person.LastName}@DemoIsland.com",
+                    EmailConfirmed = true,
+                    PersonId = person.PersonID
+                };
+                result = userManager.Create(user, "Pa$$word1");
+                if(result.Succeeded)
+                {
+                    var userId = userManager.FindByName(user.UserName).Id;
+                    userManager.AddToRole(userId, "Registered Users");
+                }
             }
             #endregion
 
