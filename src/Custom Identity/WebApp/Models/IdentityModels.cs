@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity; // for the Database.SetInitializer() method
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -6,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WebApp.Admin.Security;
 using WebApp.Models;
 
 namespace WebApp.Models
@@ -39,6 +41,8 @@ namespace WebApp.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            // Set our database initialization strategy
+            Database.SetInitializer(new SecurityDbContextInitializer());
         }
 
         public static ApplicationDbContext Create()
