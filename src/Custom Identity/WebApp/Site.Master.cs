@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using WebApp.Admin.Security;
 
 namespace WebApp
 {
@@ -70,6 +71,13 @@ namespace WebApp
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            SecurityAdmin.Visible = 
+                Request.IsAuthenticated 
+                && Page.User.IsInRole(Settings.AdminRole);
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
