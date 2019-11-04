@@ -34,6 +34,7 @@ namespace WebApp.Admin.Security
         public static string AdminUserName => AppSettings["adminUserName"];
         public static string AdminPassword => AppSettings["adminPassword"];
         public static string AdminEmail => AppSettings["adminEmail"];
+        public static string TempPassword => AppSettings["temporaryUserPassword"];
         #endregion
     }
 }

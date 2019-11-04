@@ -68,7 +68,7 @@ namespace WebApp.Admin.Security
                     EmailConfirmed = true,
                     PersonId = person.PersonID
                 };
-                result = userManager.Create(user, "Pa$$word1");
+                result = userManager.Create(user, TempPassword);
                 if(result.Succeeded)
                 {
                     var userId = userManager.FindByName(user.UserName).Id;
