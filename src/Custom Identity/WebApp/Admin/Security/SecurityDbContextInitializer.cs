@@ -51,7 +51,7 @@ namespace WebApp.Admin.Security
             if(result.Succeeded)
             {
                 // Get the Id that was generated for the user we created/added
-                var found = userManager.FindByName("WebAdmin").Id;
+                var found = userManager.FindByName(AdminUserName).Id;
                 // Add the user to the Administrators role
                 userManager.AddToRole(found, AdminRole);
             }
