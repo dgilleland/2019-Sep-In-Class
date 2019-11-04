@@ -35,6 +35,11 @@ AS
 RETURN
 GO
 
+AddClub 'ABC', 'After Bachaloriate Club'
+GO
+AddClub ABD, Another_Boring_Disaster
+GO
+
 
 -- 1.b. Modify the AddClub procedure to ensure that the club name and id are actually supplied. Use the RAISERROR() function to report that this data is required.
 ALTER PROCEDURE AddClub
@@ -55,6 +60,9 @@ AS
 RETURN
 GO
 
+AddClub null, null
+GO
+
 -- 2. Make a stored procedure that will find a club based on the first two or more characters of the club's ID. Call the procedure "FindStudentClubs"
 -- The following stored procedure does the query, but without validation
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'FindStudentClubs')
@@ -69,8 +77,11 @@ AS
     WHERE   ClubId LIKE @PartialID + '%'
 RETURN
 GO
-
+-- Testing with good data
+EXEC FindStudentClubs 'C'
+-- Testing with bad data
 EXEC FindStudentClubs NULL  -- What do you predict the result will be?
+-- Testing with unusual data
 EXEC FindStudentClubs ''    -- What do you predict the result will be?
 GO
 ALTER PROCEDURE FindStudentClubs
