@@ -16,6 +16,7 @@ namespace WebApp.Admin.Security
     /// </summary>
     internal static class Settings // There is no need to instantiate this
     {
+        #region Security Roles
         public static string AdminRole => AppSettings["adminRole"];
         /* The above is the same as typing:
          * public static string AdminRole
@@ -27,5 +28,12 @@ namespace WebApp.Admin.Security
 
         public static IEnumerable<string> DefaultSecurityRoles =>
             new List<string> { AdminRole, UserRole };
+        #endregion
+
+        #region Startup Users
+        public static string AdminUserName => AppSettings["adminUserName"];
+        public static string AdminPassword => AppSettings["adminPassword"];
+        public static string AdminEmail => AppSettings["adminEmail"];
+        #endregion
     }
 }

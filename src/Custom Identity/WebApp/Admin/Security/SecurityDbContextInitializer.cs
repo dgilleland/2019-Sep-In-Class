@@ -39,15 +39,15 @@ namespace WebApp.Admin.Security
             // Create a user
             var adminUser = new ApplicationUser
             {
-                UserName = "WebAdmin",
-                Email = "Fake@Hackers.ru",
+                UserName = AdminUserName,
+                Email = AdminEmail,
                 EmailConfirmed = true
             };
 
             // Get the BLL user manager
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             // - The ApplicationUserManager is a BLL class in the IdentityConfig.cs file
-            var result = userManager.Create(adminUser, "Pa$$w0rd");
+            var result = userManager.Create(adminUser, AdminPassword);
             if(result.Succeeded)
             {
                 // Get the Id that was generated for the user we created/added
