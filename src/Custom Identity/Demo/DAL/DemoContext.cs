@@ -6,7 +6,7 @@ namespace Demo.DAL
     using System.Linq;
     using Demo.Entities;
 
-    public partial class DemoContext : DbContext
+    internal partial class DemoContext : DbContext
     {
         public DemoContext()
             : base("name=DefaultConnection")
