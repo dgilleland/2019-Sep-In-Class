@@ -178,16 +178,111 @@ GO
 
 
 -- 5. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'RemoveFromClub')
+    DROP PROCEDURE RemoveFromClub
+GO
+CREATE PROCEDURE RemoveFromClub
+    -- Parameters here
+    @StudentId      int,
+    @ClubId         varchar(10)
+AS
+    -- Body of procedure here
+    IF (@StudentId IS NULL OR @ClubId IS NULL)
+        RAISERROR('StudentId and ClubId are required', 16, 1)
+    ELSE
+        DELETE FROM Activity WHERE StudentID = @StudentId AND ClubId = @ClubId
+RETURN
+GO
 
 
 -- Query-based Stored Procedures
 -- 6. Create a stored procedure that will display all the staff and their position in the school.
 --    Show the full name of the staff member and the description of their position.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListStaffPositions')
+    DROP PROCEDURE ListStaffPositions
+GO
+CREATE PROCEDURE ListStaffPositions
+    -- Parameters here
+AS
+    -- Body of procedure here
+    SELECT  FirstName + ' ' + LastName AS 'StaffMember',
+            PositionDescription
+    FROM    Position AS P
+        INNER JOIN Staff AS S ON P.PositionID = S.StaffID
+RETURN
+GO
 
 -- 7. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
-
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'StudentMarks')
+    DROP PROCEDURE StudentMarks
+GO
+CREATE PROCEDURE StudentMarks
+    -- Parameters here
+    @StudentID  int
+AS
+    -- Body of procedure here
+    IF @StudentID IS NULL
+        RAISERROR('StudentID is required', 16, 1)
+    ELSE
+        SELECT  CourseName,
+                C.CourseId,
+                Mark
+        FROM    Registration AS R
+            INNER JOIN Course AS C ON R.CourseId = C.CourseId
+        WHERE   StudentID = @StudentID
+RETURN
+GO
 -- 8. Display the students that are enrolled in a given course on a given semester.
 --    Display the course name and the student's full name and mark.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'CourseList')
+    DROP PROCEDURE CourseList
+GO
+CREATE PROCEDURE CourseList
+    -- Parameters here
+    @CourseId       char(7),
+    @Semester       char(5)
+AS
+    -- Body of procedure here
+    IF @CourseId IS NULL OR @Semester IS NULL
+        RAISERROR('Course and semester are required', 16, 1)
+    ELSE
+        SELECT  CourseName,
+                FirstName + ' ' + LastName as 'Student',
+                Mark
+        FROM    Course AS C
+            INNER JOIN Registration AS R ON R.CourseId = C.CourseId
+            INNER JOIN Student AS S ON S.StudentID = R.StudentID
+        WHERE   C.CourseId = @CourseId
+          AND   R.Semester = @Semester
+RETURN
+GO
+
+-- To test this, pick a course and semester
+--      SELECT * FROM Registration -- DMIT170	2004J
+EXEC CourseList 'DMIT170', '2004J'
+-- Test with "bad" data
+EXEC CourseList NULL, '2004J'
+EXEC CourseList 'DMIT170', NULL
+-- Data with no rows as result
+EXEC CourseList 'FAKE170', '2004J'
+EXEC CourseList 'DMIT170', '2194J'
 
 -- 9. The school is running out of money! Find out who still owes money for the courses they are enrolled in.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'BillCollectorWorkSheet')
+    DROP PROCEDURE BillCollectorWorkSheet
+GO
+CREATE PROCEDURE BillCollectorWorkSheet
+    -- Parameters here
+AS
+    -- Body of procedure here
+    SELECT  FirstName + ' ' + LastName as 'Student',
+            R.CourseId
+    FROM    Student AS S
+        INNER JOIN Registration AS R ON S.StudentID = R.StudentID
+    WHERE   BalanceOwing > 0
+RETURN
+GO
+
+EXEC BillCollectorWorkSheet
+-- SELECT * FROM Student
