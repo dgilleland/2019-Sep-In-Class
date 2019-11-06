@@ -211,6 +211,8 @@ AS
         INNER JOIN Staff AS S ON P.PositionID = S.PositionID
 RETURN
 GO
+EXEC ListStaffPositions
+
 
 -- 7. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
