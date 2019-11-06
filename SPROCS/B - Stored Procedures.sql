@@ -208,7 +208,7 @@ AS
     SELECT  FirstName + ' ' + LastName AS 'StaffMember',
             PositionDescription
     FROM    Position AS P
-        INNER JOIN Staff AS S ON P.PositionID = S.StaffID
+        INNER JOIN Staff AS S ON P.PositionID = S.PositionID
 RETURN
 GO
 
