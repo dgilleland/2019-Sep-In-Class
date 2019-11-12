@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
 
 namespace WestWindSystem.BLL
@@ -24,8 +25,17 @@ namespace WestWindSystem.BLL
 
         public List<ShipperSelection> ListShippers()
         {
-            throw new NotImplementedException();
-            // TODO: Queries for all the shippers.
+            using(var context = new WestWindContext())
+            {
+                var result = from shipper in context.Shippers
+                             orderby shipper.CompanyName
+                             select new ShipperSelection
+                             {
+                                 ShipperId = shipper.ShipperID,
+                                 Shipper = shipper.CompanyName
+                             };
+                return result.ToList();
+            }
         }
         #endregion
 
