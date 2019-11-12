@@ -10,14 +10,24 @@
 void Main()
 {
     int supplier; // 1, 2, 7, 8, 16, 19
-    
+    Scratchpad();
 }
 void Scratchpad()
 {
-    from ord in Orders
+    var result = from ord in Orders
     where !ord.Shipped // Still items to be shipped
        && ord.OrderDate.HasValue // The order has been placed and is ready to ship
-    select ord
+    select new OutstandingOrder
+    {
+        OrderId = ord.OrderID,
+        ShipToName = ord.ShipName,
+        OrderDate = ord.OrderDate.Value,
+        RequiredBy = ord.RequiredDate.Value,
+        // OutstandingItems
+        // FullShippingAddress
+        Comments = ord.Comments
+    };
+    result.Dump();
 }
 // Define other methods and classes here
         public List<OutstandingOrder> LoadOrders(int supplierId)
