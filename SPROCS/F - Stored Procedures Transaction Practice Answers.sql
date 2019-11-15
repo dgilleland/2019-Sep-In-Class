@@ -22,8 +22,15 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROC
 GO
 CREATE PROCEDURE DissolveClub
     -- Parameters here
+    @ClubId     varchar(10)
 AS
     -- Body of procedure here
+    -- Validatation:
+    -- A) Make sure the ClubId is not null
+    -- B) Make sure the Club exists
+    -- Transaction:
+    -- 1) Remove members of the club (from Activity)
+    -- 2) Remove the club
 RETURN
 GO
 
