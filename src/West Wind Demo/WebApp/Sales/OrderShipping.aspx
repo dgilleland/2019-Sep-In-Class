@@ -15,27 +15,39 @@
                 DataSourceID="OrdersDataSource"
                 ItemType="WestWindSystem.DataModels.OutstandingOrder">
                 <EditItemTemplate>
-                    <tr style="">
+                    <tr class="bg-info">
                         <td>
-                            <asp:Button runat="server" CommandName="Update" Text="Update" ID="UpdateButton" />
-                            <asp:Button runat="server" CommandName="Cancel" Text="Cancel" ID="CancelButton" />
+                            <asp:Label Text='<%# Item.OrderId %>' runat="server" ID="OrderIdLabel" />
+                            <asp:Label Text='<%# Item.ShipToName %>' runat="server" ID="ShipToNameLabel" />
                         </td>
                         <td>
-                            <asp:TextBox Text='<%# Bind("OrderId") %>' runat="server" ID="OrderIdTextBox" /></td>
+                            <%# Item.OrderDate.ToString("MMM dd, yyyy") %>
+                        </td>
                         <td>
-                            <asp:TextBox Text='<%# Bind("ShipToName") %>' runat="server" ID="ShipToNameTextBox" /></td>
+                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %>
+                            - in <%# Item.DaysRemaining %> days
+                        </td>
                         <td>
-                            <asp:TextBox Text='<%# Bind("OrderDate") %>' runat="server" ID="OrderDateTextBox" /></td>
-                        <td>
-                            <asp:TextBox Text='<%# Bind("RequiredBy") %>' runat="server" ID="RequiredByTextBox" /></td>
-                        <td>
-                            <asp:TextBox Text='<%# Bind("DaysRemaining") %>' runat="server" ID="DaysRemainingTextBox" /></td>
-                        <td>
-                            <asp:TextBox Text='<%# Bind("OutstandingItems") %>' runat="server" ID="OutstandingItemsTextBox" /></td>
-                        <td>
-                            <asp:TextBox Text='<%# Bind("FullShippingAddress") %>' runat="server" ID="FullShippingAddressTextBox" /></td>
-                        <td>
-                            <asp:TextBox Text='<%# Bind("Comments") %>' runat="server" ID="CommentsTextBox" /></td>
+                            <asp:LinkButton ID="Cancel" runat="server" CommandName="Cancel" CssClass="btn btn-default">Close</asp:LinkButton>
+                        </td>
+                    </tr>
+                    <tr class="bg-info">
+                        <td colspan="4">
+                            <asp:Label ID="OrderComments" runat="server" Text="<%# Item.Comments %>" />
+                            <asp:DropDownList ID="ShipperDropDown" runat="server"></asp:DropDownList>
+                            <asp:GridView ID="ProductsGridView" runat="server"
+                                CssClass="table table-hover table-condensed"
+                                DataSource="<%# Item.OutstandingItems %>">
+
+                            </asp:GridView>
+                            <asp:Label ID="ShippingAddress" runat="server" Text="<%# Item.FullShippingAddress %>" />
+                            <asp:TextBox ID="TrackingCode" runat="server" />
+                            <asp:TextBox ID="FreightCharge" runat="server" />
+                            <asp:LinkButton ID="ShipOrder" runat="server"
+                                CommandName="Ship" CssClass="btn btn-primary">
+                                Ship Order
+                            </asp:LinkButton>
+                        </td>
                     </tr>
                 </EditItemTemplate>
                 <EmptyDataTemplate>
