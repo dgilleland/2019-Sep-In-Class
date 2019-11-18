@@ -103,33 +103,44 @@ CREATE PROCEDURE ArchivePayments
     -- Parameters here
 AS
     -- Body of procedure here
-    BEGIN TRANSACTION -- Temporary until committed
-    -- Insert into StudentPaymentArchive()
-    INSERT INTO StudentPaymentArchive(StudentID, FirstName, LastName, PaymentDate, PaymentMethod, Amount)
-    SELECT  S.StudentID, FirstName, LastName, PaymentDate, PaymentTypeDescription, Amount
-    FROM    Student AS S
-        INNER JOIN Payment AS P
-            ON S.StudentID = P.StudentID
-        INNER JOIN PaymentType AS PT
-            ON P.PaymentTypeID = PT.PaymentTypeID
-    IF @@ERROR > 0
     BEGIN
-        ROLLBACK TRANSACTION -- backing out of transaction
-        RAISERROR('Unable to archive student payments', 16, 1)
-    END
-    ELSE
-    BEGIN
-        -- Delete from Payment
-        DELETE FROM Payment
+        BEGIN TRANSACTION -- Temporary until committed
+        -- Insert into StudentPaymentArchive()
+        INSERT INTO StudentPaymentArchive(StudentID, FirstName, LastName, PaymentDate, PaymentMethod, Amount)
+        SELECT  S.StudentID, FirstName, LastName, PaymentDate, PaymentTypeDescription, Amount
+        FROM    Student AS S
+            INNER JOIN Payment AS P
+                ON S.StudentID = P.StudentID
+            INNER JOIN PaymentType AS PT
+                ON P.PaymentTypeID = PT.PaymentTypeID
         IF @@ERROR > 0
         BEGIN
-            ROLLBACK TRANSACTION -- back out and undo any changes since beginning
-            RAISERROR('Unable to delete payments after archiving', 16, 1)
+            ROLLBACK TRANSACTION -- backing out of transaction
+            RAISERROR('Unable to archive student payments', 16, 1)
         END
         ELSE
         BEGIN
-            COMMIT TRANSACTION -- Accept & finalize all changes to DB
+            -- Delete from Payment
+            DELETE FROM Payment
+            IF @@ERROR > 0
+            BEGIN
+                ROLLBACK TRANSACTION -- back out and undo any changes since beginning
+                RAISERROR('Unable to delete payments after archiving', 16, 1)
+            END
+            ELSE
+            BEGIN
+                COMMIT TRANSACTION -- Accept & finalize all changes to DB
+            END
         END
     END
 RETURN
 GO
+
+-- Test the Stored Procedure
+SELECT * FROM Payment
+SELECT * FROM StudentPaymentArchive
+-- Run the stored procedure
+EXEC ArchivePayments
+-- See what data is in AFTER running the stored procedure
+SELECT * FROM Payment
+SELECT * FROM StudentPaymentArchive
