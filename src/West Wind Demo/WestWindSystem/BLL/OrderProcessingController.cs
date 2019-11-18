@@ -20,6 +20,9 @@ namespace WestWindSystem.BLL
             {
                 // Validation:
                 //      - Make sure the supplier ID exists, otherwise throw exception
+                var supplier = context.Suppliers.Find(supplierId);
+                if (supplier == null)
+                    throw new Exception("Unknown supplier");
                 //      - [Advanced:] Make sure the logged-in user works for the identified supplier.
                 // Processing
                 var result = from ord in context.Orders
