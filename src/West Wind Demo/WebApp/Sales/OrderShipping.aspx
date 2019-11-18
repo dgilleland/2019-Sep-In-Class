@@ -71,7 +71,7 @@
                             - in <%# Item.DaysRemaining %> days
                         </td>
                         <td>
-                            <asp:LinkButton ID="EditOrder" runat="server" CommandName="Edit" CssClass="btn btn-default">Ship Order</asp:LinkButton>
+                            <asp:LinkButton ID="EditOrder" runat="server" CommandName="Edit" CssClass="btn btn-default">Order Details</asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -103,6 +103,8 @@
                     <asp:Parameter DefaultValue="2" Name="supplierId" Type="Int32"></asp:Parameter>
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+            <asp:ObjectDataSource ID="ShippersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListShippers" TypeName="WestWindSystem.BLL.OrderProcessingController"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>
