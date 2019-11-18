@@ -31,6 +31,15 @@ namespace WebApp {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CustomerOrderHistory;
         
         /// <summary>
+        /// SupplierShipments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SupplierShipments;
+        
+        /// <summary>
         /// StaffOnly control.
         /// </summary>
         /// <remarks>

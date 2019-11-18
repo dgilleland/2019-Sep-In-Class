@@ -103,6 +103,7 @@ namespace WebApp
                                     Page.User.IsInRole(Settings.EmployeeRole);
                 CustomerOrderHistory.Visible = Page.User.IsInRole(Settings.CustomerRole);
                 CustomerOrdersForm.Visible = Page.User.IsInRole(Settings.EmployeeRole);
+                SupplierShipments.Visible = Page.User.IsInRole(Settings.SupplierRole);
             }
         }
     }
