@@ -34,11 +34,30 @@
                     <tr class="bg-info">
                         <td colspan="4">
                             <asp:Label ID="OrderComments" runat="server" Text="<%# Item.Comments %>" />
-                            <asp:DropDownList ID="ShipperDropDown" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="ShipperDropDown" runat="server"
+                                CssClass="form-control"
+                                DataSourceID="ShippersDataSource"
+                                DataTextField="Shipper" DataValueField="ShipperId"
+                                AppendDataBoundItems="true">
+                                <asp:ListItem Value="">[Select a Shipper]</asp:ListItem>
+                            </asp:DropDownList>
                             <asp:GridView ID="ProductsGridView" runat="server"
                                 CssClass="table table-hover table-condensed"
-                                DataSource="<%# Item.OutstandingItems %>">
-
+                                DataSource="<%# Item.OutstandingItems %>"
+                                ItemType="WestWindSystem.DataModels.OrderProductInformation"
+                                AutoGenerateColumns="false"
+                                DataKeyNames="ProductId">
+                                <Columns>
+                                    <asp:BoundField DataField="ProductName" HeaderText="Product Name" />
+                                    <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                    <asp:BoundField DataField="QtyPerUnit" HeaderText="Qty per Unit" />
+                                    <asp:BoundField DataField="Outstanding" HeaderText="Outstanding" />
+                                    <asp:TemplateField HeaderText="Ship Quantity">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="ShipQuantity" runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
                             </asp:GridView>
                             <asp:Label ID="ShippingAddress" runat="server" Text="<%# Item.FullShippingAddress %>" />
                             <asp:TextBox ID="TrackingCode" runat="server" />
