@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,21 +9,24 @@ using WestWindSystem.DataModels;
 
 namespace WestWindSystem.BLL
 {
+    [DataObject]
     public class OrderProcessingController
     {
         #region Queries
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<OutstandingOrder> LoadOrders(int supplierId)
         {
-            throw new NotImplementedException();
-            // TODO: Implement this method
-            /* Validation:
-                    Make sure the supplier ID exists, otherwise throw exception
-                    [Advanced:] Make sure the logged-in user works for the identified supplier.
-               Query for outstanding orders, getting data from the following tables:
-                    TODO: List table names
-             */
+            using (var context = new WestWindContext())
+            {
+                // Validation:
+                //      - Make sure the supplier ID exists, otherwise throw exception
+                //      - [Advanced:] Make sure the logged-in user works for the identified supplier.
+                // Processing
+
+            }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ShipperSelection> ListShippers()
         {
             using(var context = new WestWindContext())
