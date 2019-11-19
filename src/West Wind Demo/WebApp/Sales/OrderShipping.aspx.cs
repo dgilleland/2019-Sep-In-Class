@@ -45,6 +45,9 @@ namespace WebApp.Sales
                 {
                     shippingInfo.ShipperId = int.Parse(shipVia.SelectedValue);
                 }
+                TextBox tracking = e.Item.FindControl("TrackingCode") as TextBox;
+                if (tracking != null)
+                    shippingInfo.TrackingCode = tracking.Text;
 
             }
         }
