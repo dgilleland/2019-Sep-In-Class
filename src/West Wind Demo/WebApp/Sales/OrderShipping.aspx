@@ -79,14 +79,14 @@
                 <ItemTemplate>
                     <tr style="">
                         <td>
-                            (<asp:Label Text='<%# Item.OrderId %>' runat="server" ID="OrderIdLabel" />)
-                            <asp:Label Text='<%# Item.ShipToName %>' runat="server" ID="ShipToNameLabel" />
+                            (<%# Item.OrderId %>)
+                            <%# Item.ShipToName %>
                         </td>
                         <td>
-                            <asp:Label Text='<%# Item.OrderDate.ToString("MMM dd, yyyy") %>' runat="server" ID="OrderDateLabel" />
+                            <%# Item.OrderDate.ToString("MMM dd, yyyy") %>
                         </td>
                         <td>
-                            <asp:Label Text='<%# Item.RequiredBy.ToString("MMM dd, yyyy") %>' runat="server" ID="RequiredByLabel" />
+                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %>
                             - in <%# Item.DaysRemaining %> days
                         </td>
                         <td>
