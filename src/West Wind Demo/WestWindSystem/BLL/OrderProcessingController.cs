@@ -87,23 +87,46 @@ namespace WestWindSystem.BLL
         #region Commands
         public void ShipOrder(int orderId, ShippingDirections shipping, List<ShippedItem> items)
         {
-            throw new NotImplementedException();
-            // TODO: Validation steps
-            /* Validation:
-                    OrderId must be valid
-                    ShippingDirections is required (cannot be null)
-                    List<ShippedItem> cannot be empty/null
-                    The products must be on the order AND items that this supplier provides
-                    Quantities must be greater than zero and less than or equal to the quantity outstanding
-                    Shipper must exist
-                    Freight charge must be either null (no charge) or > $0.00
-             */
-            // TODO: Process the order shipment
-            /*Processing (tables/data that must be updated/inserted/deleted/whatever)
-                Create new Shipment
-                Add all manifest items
-                Check if order is complete; if so, update Order.Shipped
-             */
+            using (var context = new WestWindContext())
+            {
+                // TODO: Validation steps
+                // a) OrderId must be valid
+                var existingOrder = context.Orders.Find(orderId);
+                if (existingOrder == null)
+                    throw new Exception("Order does not exist");
+                if (existingOrder.Shipped)
+                    throw new Exception("This order has already been completed");
+                if (!existingOrder.OrderDate.HasValue)
+                    throw new Exception("This order is not ready to be shipped (no order date has been specified)");
+                // b) ShippingDirections is required (cannot be null)
+                if (shipping == null) throw new Exception("No shipping details provided");
+                // c) Shipper must exist
+                var shipper = context.Shippers.Find(shipping.ShipperId);
+                if (shipper == null) throw new Exception("Invalid shipper Id");
+                // d) Freight charge must be either null (no charge) or > $0.00
+                // TODO: Q) Should I just convert a $0 charge to a null??
+                if (shipping.FreightCharge.HasValue && shipping.FreightCharge <= 0)
+                    throw new Exception("Freight charge must be either a positive value or no charge");
+                // e) List<ShippedItem> cannot be empty/null
+                if (items == null || !items.Any())
+                    throw new Exception("No products identified for shipping");
+                // f) The products must be on the order
+                foreach(var item in items)
+                {
+                    if (item == null) throw new Exception("Blank item listed in the products to be shipped");
+                    if (!existingOrder.OrderDetails.Any(x => x.ProductID.ToString() == item.Product))
+                        throw new Exception($"The product {item.Product} does not exist on the order");
+                    // f-2) AND items that this supplier provides
+                    // TODO: g) Quantities must be greater than zero and less than or equal to the quantity outstanding
+                }
+
+                // TODO: Process the order shipment
+                /*Processing (tables/data that must be updated/inserted/deleted/whatever)
+                    Create new Shipment
+                    Add all manifest items
+                    Check if order is complete; if so, update Order.Shipped
+                 */
+            }
         }
         #endregion
     }
