@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebApp.Admin.Security;
+using WestWindSystem.BLL;
 using WestWindSystem.DataModels;
 
 namespace WebApp.Sales
@@ -33,7 +34,7 @@ namespace WebApp.Sales
                 // Extract data from the form & call the BLL to ship the order
                 // Gather information from the form for the products to be shipped and the shipping information. This is sent to the void OrderProcessingController.ShipOrder(int orderId, ShippingDirections shipping, List<ProductShipment> products)
 
-                int orderId;
+                int orderId = 0;
                 ShippingDirections shippingInfo = new ShippingDirections();
                 Label idLabel = e.Item.FindControl("OrderIdLabel") as Label; // Safe cast to a label obj
                 if(idLabel != null) // I successfully got the control
@@ -48,7 +49,37 @@ namespace WebApp.Sales
                 TextBox tracking = e.Item.FindControl("TrackingCode") as TextBox;
                 if (tracking != null)
                     shippingInfo.TrackingCode = tracking.Text;
-
+                TextBox freight = e.Item.FindControl("FreightCharge") as TextBox;
+                decimal charge;
+                if (freight != null && decimal.TryParse(freight.Text, out charge))
+                    shippingInfo.FreightCharge = charge;
+                // Extract the items being shipped, as per the GridView
+                List<ProductShipment> itemsShipped = new List<ProductShipment>();
+                GridView gv = e.Item.FindControl("ProductsGridView") as GridView;
+                if(gv != null)
+                {
+                    foreach(GridViewRow row in gv.Rows)
+                    {
+                        HiddenField prodHidden = row.FindControl("ProdId") as HiddenField;
+                        TextBox shipqty = row.FindControl("ShipQuantity") as TextBox;
+                        if(prodHidden != null && shipqty != null)
+                        {
+                            int qty;
+                            if(int.TryParse(shipqty.Text, out qty))
+                            {
+                                var item = new ProductShipment
+                                {
+                                    ProductId = int.Parse(prodHidden.Value),
+                                    ShipQuantity = qty
+                                };
+                                itemsShipped.Add(item);
+                            }
+                        }
+                    }
+                }
+                // Send the data into the BLL
+                var controller = new OrderProcessingController();
+                controller.ShipOrder(orderId, shippingInfo, itemsShipped);
             }
         }
     }
