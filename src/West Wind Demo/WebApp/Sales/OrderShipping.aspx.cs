@@ -39,6 +39,15 @@ namespace WebApp.Sales
                 DropDownList shipViaDropDown = e.Item.FindControl("ShipperDropDown") as DropDownList;
                 if (shipViaDropDown != null) // if I got the control
                     shipInfo.ShipperId = int.Parse(shipViaDropDown.SelectedValue);
+
+                TextBox tracking = e.Item.FindControl("TrackingCode") as TextBox;
+                if (tracking != null)
+                    shipInfo.TrackingCode = tracking.Text;
+
+                decimal price;
+                TextBox freight = e.Item.FindControl("FreightCharge") as TextBox;
+                if (freight != null && decimal.TryParse(freight.Text, out price))
+                    shipInfo.FreightCharge = price;
             }
         }
     }
