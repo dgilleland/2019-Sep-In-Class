@@ -72,8 +72,11 @@ namespace WebApp.Sales
                     }
                 }
 
-                var controller = new OrderProcessingController();
-                controller.ShipOrder(orderId, shipInfo, goods);
+                MessageUserControl.TryRun(() =>
+                {
+                    var controller = new OrderProcessingController();
+                    controller.ShipOrder(orderId, shipInfo, goods);
+                }, "Order shipment recorded", "The products identified as shipped are recorded in the database");
             }
         }
     }
