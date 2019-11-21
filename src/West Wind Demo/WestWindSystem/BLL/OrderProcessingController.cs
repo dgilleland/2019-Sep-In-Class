@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
+using WestWindSystem.Entities;
 
 namespace WestWindSystem.BLL
 {
@@ -120,12 +121,38 @@ namespace WestWindSystem.BLL
                     // TODO: g) Quantities must be greater than zero and less than or equal to the quantity outstanding
                 }
 
-                // TODO: Process the order shipment
-                /*Processing (tables/data that must be updated/inserted/deleted/whatever)
-                    Create new Shipment
-                    Add all manifest items
-                    Check if order is complete; if so, update Order.Shipped
-                 */
+                // Process the order shipment
+                // 1) Create new Shipment
+                var ship = new Shipment // Entity class
+                {
+                    OrderID = orderId,
+                    ShipVia = shipping.ShipperId,
+                    TrackingCode = shipping.TrackingCode,
+                    FreightCharge = shipping.FreightCharge.HasValue
+                                  ? shipping.FreightCharge.Value
+                                  : 0,
+                    ShippedDate = DateTime.Now
+                };
+                // 2) Create manifest items for my shipment
+                foreach(var item in items)
+                {
+                    // Notice that I'm adding the manifest item to the Shipment object
+                    // rather than directly to the database context.
+                    // That's because, by adding to the Shipment object, the correct
+                    // values for foreign key fields will be assigned to the new data.
+                    ship.ManifestItems.Add(new ManifestItem
+                    {
+                        ProductID = int.Parse(item.Product),
+                        ShipQuantity = item.Quantity
+                    });
+                }
+                // TODO: 3) Check if order is complete; if so, update Order.Shipped
+
+                // 4) Add the shipment to the context
+                context.Shipments.Add(ship);
+
+                // 5) Save the changes (as a single transaction)
+                context.SaveChanges();
             }
         }
         #endregion
