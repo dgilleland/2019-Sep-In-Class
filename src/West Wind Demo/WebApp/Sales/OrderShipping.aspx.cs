@@ -77,9 +77,12 @@ namespace WebApp.Sales
                         }
                     }
                 }
-                // Send the data into the BLL
-                var controller = new OrderProcessingController();
-                controller.ShipOrder(orderId, shippingInfo, itemsShipped);
+                MessageUserControl.TryRun(() =>
+                {
+                    // Send the data into the BLL
+                    var controller = new OrderProcessingController();
+                    controller.ShipOrder(orderId, shippingInfo, itemsShipped);
+                }, "Success", "The order shipment information has been recorded");
             }
         }
     }
