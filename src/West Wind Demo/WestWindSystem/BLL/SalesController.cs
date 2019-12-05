@@ -1,4 +1,4 @@
-﻿using WestWindSystem.DAL;
+using WestWindSystem.DAL;
 using WestWindSystem.Entities;
 using System;
 using System.Collections.Generic;
@@ -278,7 +278,7 @@ namespace WestWindSystem.BLL
 
                 // B) Add/Update/Delete order details
                 //    Loop through the items as known in the database (to update/remove)
-                foreach (var detail in orderInProcess.OrderDetails)
+                foreach (var detail in orderInProcess.OrderDetails.ToList()) // .ToList() to bring into RAM
                 {
                     var changes = order.OrderItems.SingleOrDefault(x => x.ProductId == detail.ProductID);
                     if (changes == null)
@@ -363,7 +363,7 @@ namespace WestWindSystem.BLL
 
                 // C) Add/Remove/Update order details
                 //var toRemove = new List<OrderDetail>();
-                foreach (var detail in orderInProcess.OrderDetails)
+                foreach (var detail in orderInProcess.OrderDetails.ToList()) // .ToList() to bring into RAM
                 {
                     var changes = order.OrderItems.SingleOrDefault(x => x.ProductId == detail.ProductID);
                     if (changes == null)
